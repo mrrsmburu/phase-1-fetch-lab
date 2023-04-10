@@ -15,3 +15,18 @@ function renderBooks(books) {
 document.addEventListener('DOMContentLoaded', function() {
   fetchBooks();
 });
+function fetchBooks() {
+  fetch('https://anapioficeandfire.com/api/books')
+    .then(response => response.json())
+    .then(json => renderBooks(json));
+}
+function renderBooks(json) {
+  const bookTitles = json.map(book => book.name);
+  const titlesList = document.createElement('ul');
+  bookTitles.forEach(title => {
+    const titleElement = document.createElement('li');
+    titleElement.textContent = title;
+    titlesList.appendChild(titleElement);
+  });
+  document.body.appendChild(titlesList);
+}
